@@ -47,3 +47,16 @@ async def show_euron_data():
     async for document in cursor:
         iterms.append(euron_helper(document))
     return iterms
+
+@app.patch("/euron/{name}/{course}")
+async def update_record(name:str,course1:str):
+    filter_criteria = {"name": name}
+    update_operation = {"$set": {"course": course1}}
+    result = await euron_data.update_one(filter_criteria, update_operation)
+    return {"updated!!!!!"}
+
+@app.delete("/euron/{name}/")
+async def delete_record(name:str):
+    filter_criteria = {"name": name}
+    result = await euron_data.delete_one(filter_criteria)
+    return {"deleted!!!!!"}
